@@ -1,0 +1,38 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block title %}
+ {{ user.public_name }}
+{% endblock %}
+
+{% block specific %}
+    <div>
+        <h5>{{ user.public_name }}</h5><h6>{{user.username}}</h6>
+        {% if user.id != request.user.id and request.user.is_authenticated %}
+            {% if rq_user_is_following %}
+                <button id="follow-btn" onclick="change_follow_status({{user.id}})">Unfollow</button>
+            {% else %}
+                <button id="follow-btn" onclick="change_follow_status({{user.id}})">Follow</button>
+            {% endif %}
+        {% endif %}
+        <div>
+            <a>Followers: <span id="follower-count">{{ follower_count }} </span></a><a href="{% url 'get_following_posts' user.username %}">Following: <span id="following-count">{{ following_count }}</span></a>
+        </div>
+    </div>
+    <script src="{% static 'network/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% include "network/index.html" %}
+{% endblock %}
+
+{% block pagination %}
+    <div id="pagination_element" class="pagination-element">
+        {% if has_previous %}
+        <a href="{% url 'get_profile_username' user.username page_number|add:'-1' %}">Previous</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="{% url 'get_profile_username' user.username page_number|add:'1' %}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}

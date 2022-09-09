@@ -1,0 +1,27 @@
+{% extends "network/home.html" %}
+
+{% block title %}
+Following - {{user.public_name}}
+
+{% endblock %}
+
+{% block specific %}
+<div>
+    Posts from users that <b>{{user.public_name}}</b> follows.
+</div>
+{% endblock %}
+
+{% block body %}
+{% include "network/index.html" %}
+{% endblock %}
+
+{% block pagination %}
+    <div id="pagination_element" class="pagination-element">
+        {% if has_previous %}
+        <a href="{% url 'get_following_posts' user.username page_number|add:'-1' %}">Previous</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="{% url 'get_following_posts' user.username page_number|add:'1' %}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block specific %}
+<div class="container-fluid">
+    {% if message %}
+    <div class="row alert alert-primary">
+        {{message}}
+    </div>
+    {% endif %}
+    <div class="row">
+        <div id="new-post" class="col-xs-12">
+            <form>
+                <textarea id="new-post-textarea" placeholder="{{ post_form.0.visible_fields.label_tag }}"></textarea>
+                <input type="submit" value="Post">
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'network/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% include "network/index.html" %}
+{% endblock %}
+
+{% block pagination %}
+    <div id="pagination_element" class="pagination-element">
+        {% if has_previous %}
+        <a href="{% url 'index' page_number|add:'-1' %}">Previous</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="{% url 'index' page_number|add:'1' %}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}

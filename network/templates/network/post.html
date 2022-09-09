@@ -1,0 +1,48 @@
+{% extends "network/layout.html" %}
+
+{% block title %}
+    {{ogpost.0.0.userID.username}} posted at {{ogpost.0.0.timestamp}}
+{% endblock %}
+
+{% block specific %}
+{% for post in ogpost %}
+<div class="post-container">
+    <img src="{{post.0.userID.profile_image_URL}}" class="profile-img">
+    <div>
+        <a href="{% url 'get_profile_username' post.0.userID.username %}"><b>{{post.0.userID.public_name}}</b></a><h6>@{{post.0.userID.username}}</h6>
+        <p>{{post.0.text}}</p>
+        <h6><i>On {{post.0.timestamp}}</i></h6>
+        <button class="like-btn" onclick="change_like_status(event, {{post.0.id}})" id="post-btn-{{post.0.id}}">
+        {% if post.2 %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>
+        {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+            </svg>  
+        {% endif %}          
+        </button><h6><span id="post-likes-{{post.0.id}}">{{post.1}}</span> Likes</h6>
+        {% if request.user.id == post.0.userID.id %}
+            <a href="{% url 'edit_post' post.0.id %}">Edit this post.</a>
+        {% endif %}
+        <a href="#">Reply</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block body %}
+{% include "network/index.html" %}
+{% endblock %}
+
+{% block pagination %}
+    <div id="pagination_element" class="pagination-element">
+        {% if has_previous %}
+        <a href="{% url 'load_post' ogpost.id page_number|add:'-1' %}">Previous</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="{% url 'load_post' ogpost.id page_number|add:'1' %}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}
