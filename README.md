@@ -9,14 +9,14 @@ This is the one that required the most work for sure. You can post, like/unlike 
 
 ### Images
 
-![Screen 1](screen1-posting.png)
+![Screen 1](screenshots/screen1-posting.png)
 
-![Screen 2](screen2-editpost.png)
+![Screen 2](screenshots/screen2-editpost.png)
 
-![Screen 3](screen3-editedpost.png)
+![Screen 3](screenshots/screen3-editedpost.png)
 
-![Screen 4](screen4-hermione-profile.png)
+![Screen 4](screenshots/screen4-hermione-profile.png)
 
-![Screen 5](screen5-hermione-following.png)
+![Screen 5](screenshots/screen5-hermione-following.png)
 
-![Screen 6](screen6-home.png)
+![Screen 6](screenshots/screen6-home.png)
